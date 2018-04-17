@@ -1,0 +1,15 @@
+#!/bin/bash
+
+BASE_DIR=$(dirname "$0")
+PREFIX=
+
+if ! docker ps > /dev/null 2>&1; then
+  PREFIX=sudo
+fi
+
+"$PREFIX" docker run -ti \
+                     --rm \
+                     -v "$(readlink -f "$BASE_DIR")/data/:/data/" \
+                     -p 1234:1234 \
+                     -p 11234:11234 \
+                     node-environment
